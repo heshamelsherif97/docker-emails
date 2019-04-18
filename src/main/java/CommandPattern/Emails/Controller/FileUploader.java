@@ -113,11 +113,18 @@ public class FileUploader extends SimpleChannelInboundHandler<HttpObject> {
 
                            //
 
-                            if(file.exists() && url[1].equals("AddClass"))
+                            if(file.exists() && url[1].equals("add_command"))
                                 throw new Exception();
 
-                            if(!file.exists() && (url[1].equals("DeleteClass") || url[1].equals("UpdateClass")))
+                            if(!file.exists() && (url[1].equals("delete_command") || url[1].equals("update_command") || url[1].equals("update_class")))
                                 throw new Exception();
+
+                            if (file.exists() && (url[1].equals("update_command") || url[1].equals("update_class")))
+                            {
+                                file.delete();
+                                System.out.println("here");
+                            }
+
 
                             file.createNewFile();
 

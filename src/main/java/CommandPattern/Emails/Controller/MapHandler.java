@@ -59,18 +59,20 @@ public class MapHandler {
         try {
             input = new FileInputStream("src/main/java/CommandPattern/Emails/Controller/configCommandMap.properties");
             prop.load(input);
+            prop.remove(key);
             input.close();
 
             prop.remove(key);
             output = new FileOutputStream("src/main/java/CommandPattern/Emails/Controller/configCommandMap.properties");
             Date time = new java.util.Date();
             prop.setProperty("timestamp", time.getTime()+"");
-            System.out.println("in addProperty");
+            System.out.println("in remove Property");
             prop.store(output, null);
             output.close();
 
 
         } catch(Exception e) {
+            e.printStackTrace();
             System.out.println("error in remove Property");
 
         }

@@ -21,6 +21,7 @@ public class PropertiesHandler {
             prop.setProperty("max_db_threads", "20");
             prop.setProperty("max_app_threads", "20");
             prop.setProperty("freeze", "false");
+            prop.setProperty("restart", "false");
 
             prop.store(output, null);
         } catch (Exception e) {

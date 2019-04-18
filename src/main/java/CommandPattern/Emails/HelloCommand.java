@@ -31,15 +31,7 @@ public class HelloCommand implements Command {
     }
 
     public JSONObject execute(JSONObject json) {
-       /* try {
-            int id = Integer.parseInt(json.getString("email_id"));
-            return deleteEmail(id);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            String message = "Error in deleting email";
-            return new JSONObject(message);
-        }*/
-        System.out.println("Farida");
+        System.out.println("Hello 11 update");
         return new JSONObject();
     }
 

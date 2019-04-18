@@ -19,13 +19,13 @@ public class DeleteFolderCommand implements Command {
     public static JSONObject DeleteFolder(String name, String email) throws Exception {
         JSONObject result;
         try {
-            con.createStatement().executeUpdate("UPDATE recipient SET folder = 'NULL' where " +
+            con.createStatement().executeUpdate("UPDATE recipient SET folder = NULL where " +
                     "folder = '"+name+"' and recipient_email = '"+email+"';");
 
-            con.createStatement().executeUpdate("UPDATE cc SET folder = 'NULL' where " +
+            con.createStatement().executeUpdate("UPDATE cc SET folder = NULL where " +
                     "folder = '"+name+"' and cc_email = '"+email+"';");
 
-            con.createStatement().executeUpdate("UPDATE bcc SET folder = 'NULL' where " +
+            con.createStatement().executeUpdate("UPDATE bcc SET folder = NULL where " +
                     "folder = '"+name+"' and bcc_email = '"+email+"';");
 
             String message = "{\"message\":\"Folder deleted\"}";

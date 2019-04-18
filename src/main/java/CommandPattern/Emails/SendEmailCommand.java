@@ -40,10 +40,28 @@ public class SendEmailCommand implements Command {
             }
 
 
+            email = con.createStatement().executeQuery("select * from email where " +
+                     "ID="+id+";");
+            jsonresult = ResultSetConverter.convertResultSetIntoJSON(email);
+
+            System.out.println(jsonresult);
+            result = jsonresult.getJSONObject(0);
+            body = result.getString("body");
+            subject = result.getString("subject");
 
 
-            String message = "{\"message\":\"Email sent\"}";
-            result = new JSONObject(message);
+            String encBody = EncryptDecrypt.encrypt("Bar12345Bar12345","RandomInitVector", body);
+            String encSubject = EncryptDecrypt.encrypt("Bar12345Bar12345","RandomInitVector", subject);
+
+            result.remove("body");
+            result.remove("subject");
+            result.put("body", encBody);
+            result.put("subject", encSubject);
+
+
+
+            //String message = "{\"message\":\"Email sent\"}";
+            //result = new JSONObject(message);
         }
         catch(Exception ex){
             ex.printStackTrace();

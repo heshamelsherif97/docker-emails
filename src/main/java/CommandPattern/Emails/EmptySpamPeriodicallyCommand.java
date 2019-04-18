@@ -16,17 +16,7 @@ import java.util.TimerTask;
 public class EmptySpamPeriodicallyCommand {
 
     static Connection con = DBConnection.getInstance().getConnection();
-    public static JSONObject EmptySpam() throws Exception{
 
-        ResultSet res = con.createStatement().executeQuery("SELECT * FROM email WHERE type = 'spam';");
-        JSONArray jsonresult = ResultSetConverter.convertResultSetIntoJSON(res);
-        JSONObject result = jsonresult.getJSONObject(0);
-        System.out.println(result);
-
-
-        return result;
-
-    }
 
     public JSONObject execute(JSONObject json) {
         try {
@@ -43,9 +33,10 @@ public class EmptySpamPeriodicallyCommand {
 
             Timer timer = new Timer ();
             TimerTask task = new ScheduleSpamDeletionTask();
-            timer.schedule(task, difference);
+            timer.schedule(task, 60);
 
-            return EmptySpam( );
+            String message = "{ \"message\": \"Deleting spam!\"}";
+            return new JSONObject(message);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -62,7 +53,11 @@ class ScheduleSpamDeletionTask extends TimerTask {
     public void run () {
         try {
             con = DBConnection.getInstance().getConnection();
-            String query = "DELETE FROM email WHERE type = 'spam';";
+            String query = "DELETE FROM recipient WHERE spam = 'true';";
+            con.createStatement().executeUpdate(query);
+            query = "DELETE FROM cc WHERE spam = 'true';";
+            con.createStatement().executeUpdate(query);
+            query = "DELETE FROM bcc WHERE spam = 'true';";
             con.createStatement().executeUpdate(query);
         }
         catch (Exception ex){

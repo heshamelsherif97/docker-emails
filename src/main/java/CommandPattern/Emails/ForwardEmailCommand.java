@@ -42,8 +42,8 @@ public class ForwardEmailCommand implements Command  {
 
 
         ResultSet idRes = con.createStatement().executeQuery("INSERT INTO email(timest,sender,subject," +
-                "body,type,folder) " + "VALUES('"+timest+"','"+sender+"','"+subject+"','"+body+"', " +
-                "'sent','"+folderName+"') returning id;");
+                "body,type) " + "VALUES('"+timest+"','"+sender+"','"+subject+"','"+body+"', " +
+                "'sent') returning id;");
 
         jsonresult = ResultSetConverter.convertResultSetIntoJSON(idRes);
         JSONObject result = jsonresult.getJSONObject(0);
@@ -97,7 +97,7 @@ public class ForwardEmailCommand implements Command  {
             String bcc = json.getString("bcc");
             return forwardEmail( id,sender,rec,cc,bcc);
         } catch (Exception ex) {
-         //   ex.printStackTrace();
+//            ex.printStackTrace();
             String message = "{ \"message\": \"Error in forwarding email\"}";
             return new JSONObject(message);
         }

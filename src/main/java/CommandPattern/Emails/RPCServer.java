@@ -23,18 +23,33 @@ public class RPCServer {
 
     public static void main(String[] argv) {
 
+
         ConnectionFactory factory = new ConnectionFactory();
         //TODO: Get ip:port from config file
         factory.setHost("localhost");
         Connection connection = null;
         CommandMap.instantiate();
+
+        Runnable task = new Runnable() {
+            public void run() {
+                try {
+                    (new EmptySpamPeriodicallyCommand()).execute(new JSONObject());
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
+            }
+        };
+
+        executor.submit(task);
+
+
         try {
             //set up connection
             connection = factory.newConnection();
             final Channel channel = connection.createChannel();
 
             //declare queue
-            channel.queueDeclare(RPC_QUEUE_NAME, false, false, false, null);
+            channel.queueDeclare(RPC_QUEUE_NAME, true, false, false, null);
 
             //attempt to split work between workers evenly
             channel.basicQos(1);
@@ -117,13 +132,29 @@ public class RPCServer {
         }
     }
 
+    public static void restart(){
+        try {
+            Runtime.getRuntime().exec("java -jar myApp.jar");
+            System.exit(0);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public  static void createResponse(String message, Channel channel, AMQP.BasicProperties properties, AMQP.BasicProperties replyProps, Envelope envelope)  throws IOException{
 
         JSONObject response = new JSONObject();
 
         try {
+            JSONObject jsonObject;
             System.out.print(message);
-            JSONObject jsonObject = new JSONObject(message);
+            try {
+               jsonObject = new JSONObject(message);
+            } catch (Exception e){
+               jsonObject = new JSONObject("{ \"message\": \"Error\"}");
+            }
+
 //                        System.out.println(CommandMap.cmdMap);
             String method = jsonObject.getString("method");
             Command x  = (Command) CommandMap.queryClass(method).newInstance();

@@ -1,7 +1,5 @@
 package CommandPattern.Emails.Controller;
 
-import CommandPattern.Emails.*;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -13,9 +11,10 @@ public class ControlCommandMap {
         cmdMap.put("freeze", FreezeCommand.class);
         cmdMap.put("continue", ContinueCommand.class);
         cmdMap.put("set_max_db_connections_count", SetMaxDBConnectionsCountCommand.class);
-        cmdMap.put("add_class", AddClassCommand.class);
+        cmdMap.put("add_command", AddCommandCommand.class);
+        cmdMap.put("update_command", UpdateCommandCommand.class);
+        cmdMap.put("delete_command", DeleteCommandCommand.class);
         cmdMap.put("update_class", UpdateClassCommand.class);
-        cmdMap.put("delete_class", DeleteClassCommand.class);
 
     }
 

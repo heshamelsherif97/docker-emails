@@ -52,7 +52,7 @@ public class CommandHandler extends SimpleChannelInboundHandler<Object> {
 
            /* byte[] bytes = new byte[buffer.capacity()];
             buffer.getBytes(0, bytes);
-            Class<?> newClass = (new ByteClassLoader()).createClass(bytes, "Habiiba");*/
+            Class<?> newClass = (new DynamicClassLoader()).createClass(bytes, "Habiiba");*/
 
         }
     }

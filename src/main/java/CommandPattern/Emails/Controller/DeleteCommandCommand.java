@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public class DeleteClassCommand implements Command {
+public class DeleteCommandCommand implements Command {
 
     public JSONObject execute(JSONObject json) {
         ClassLoader classLoader = new ClassLoader() {
@@ -18,8 +18,10 @@ public class DeleteClassCommand implements Command {
 
         try{
             File file = (File) json.get("file");
+            String command = json.getString("command_name");
             file.delete();
-            MapHandler.removeProperty(FilenameUtils.removeExtension(file.getName()));
+            MapHandler.removeProperty(command);
+            classLoader = null;
         } catch (Exception e){
             e.printStackTrace();
             return new JSONObject("{ \"message\" : \"Error in deleting class\" }");

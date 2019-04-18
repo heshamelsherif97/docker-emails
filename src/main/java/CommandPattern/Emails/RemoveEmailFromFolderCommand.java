@@ -16,13 +16,13 @@ public class RemoveEmailFromFolderCommand implements Command {
 
     public static JSONObject removeEmailFromFolder(int id, String email) throws Exception {
 
-        int s = con.createStatement().executeUpdate("UPDATE recipient SET folder = 'NULL' where email_id " +
+        int s = con.createStatement().executeUpdate("UPDATE recipient SET folder = NULL where email_id " +
                 "="+id+" and recipient_email = '"+email+"';");
 
-        s += con.createStatement().executeUpdate("UPDATE cc SET folder = 'NULL' where email_id " +
+        s += con.createStatement().executeUpdate("UPDATE cc SET folder = NULL where email_id " +
                 "="+id+" and cc_email = '"+email+"';");
 
-        s += con.createStatement().executeUpdate("UPDATE bcc SET folder = 'NULL' where email_id ="
+        s += con.createStatement().executeUpdate("UPDATE bcc SET folder = NULL where email_id ="
                 +id+" and bcc_email = '"+email+"';");
 
 

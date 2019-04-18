@@ -17,7 +17,7 @@ public class ViewFoldersCommand implements Command {
     public static JSONObject viewFolders(String email) throws Exception {
 
         ResultSet res = con.createStatement().executeQuery("select distinct folder from recipient where " +
-                "recipient_email = '"+ email + "';");
+                "recipient_email = '"+ email + "' and folder is not null;");
 
         JSONArray jsonresult = ResultSetConverter.convertResultSetIntoJSON(res);
 

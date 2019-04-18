@@ -23,9 +23,9 @@ public class ReportEmailForSpamCommand implements Command {
 
             s += con.createStatement().executeUpdate("UPDATE bcc SET spam = 'true' WHERE "
                     +"email_id ="+id+" and bcc_email ='"+email+"' and spam = 'false'");
-
             s += con.createStatement().executeUpdate("UPDATE cc SET spam = 'true' WHERE "
                     +"email_id ="+id+" and cc_email ='"+email+"' and spam = 'false'");
+
 
             if(s == 0){
                 throw new Exception();
