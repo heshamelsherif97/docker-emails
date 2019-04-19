@@ -1,0 +1,7 @@
+SignUp, SignUp
+getUsers, getAllUsers
+getUser, getSingleUser
+updateFirstName, updateFirstName
+updateLastName, updateLastName
+updatePassword, updatePassword
+login, login
