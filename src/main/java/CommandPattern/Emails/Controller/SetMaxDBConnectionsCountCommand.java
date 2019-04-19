@@ -1,7 +1,7 @@
 package CommandPattern.Emails.Controller;
 
 import CommandPattern.Command;
-import CommandPattern.userStories.DBConnection;
+import CommandPattern.DBConnection;
 import org.json.JSONObject;
 
 public class SetMaxDBConnectionsCountCommand implements Command {
